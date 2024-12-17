@@ -16,10 +16,10 @@ jobs:
         with:
           python-version: '3.10'
       - name: Install dependencies
-        run: pip install requests PyGithub
+        run: pip install requests PyGithub anthropic
       - name: Run nitpick script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GITHUB_EVENT_COMMENT_ID: ${{ github.event.comment.id }}
         run: python .github/workflows/nitpick.py
