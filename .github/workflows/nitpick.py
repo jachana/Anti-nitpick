@@ -27,7 +27,7 @@ def generate_code_suggestion(diff, anthropic_api_key):
     client = anthropic.Anthropic(api_key=anthropic_api_key)
     prompt = f"""Suggest code changes based on this diff:\n{diff}"""
     message = client.messages.create(
-        model="claude-3-opus-20240229",
+        model="claude-3.5-haiku-20240229",
         max_tokens=1024,
         messages=[
             {
