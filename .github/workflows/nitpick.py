@@ -10,7 +10,7 @@ def get_pr_diff(repo, pr_number):
     return response.text
 
 def get_comment_diff(repo, comment_id):
-    comment = repo.get_issue_comment(comment_id)
+    comment = repo.get_issue_comments(comment_id)
     if not comment.pull_request_url:
         return None
     pr = repo.get_pull(int(comment.pull_request_url.split('/')[-1]))
