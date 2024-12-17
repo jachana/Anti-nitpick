@@ -1,0 +1,24 @@
+name: Nitpick Code Suggestions
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  nitpick:
+    if: github.event.issue.pull_request != null && contains(github.event.comment.body, 'nitpick')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: pip install requests PyGithub
+      - name: Run nitpick script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python .github/workflows/nitpick.py
