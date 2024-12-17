@@ -10,7 +10,7 @@ def get_pr_diff(repo, pr_number):
     return response.text
 
 def get_comment_diff(repo, comment_id):
-    comment = repo.get_issue_comment(comment_id)
+    comment = repo.get_issues_comments(comment_id)
     if not comment.pull_request_url:
         return None
     pr = repo.get_pull(int(comment.pull_request_url.split('/')[-1]))
@@ -27,7 +27,7 @@ def generate_code_suggestion(diff, anthropic_api_key):
     client = anthropic.Anthropic(api_key=anthropic_api_key)
     prompt = f"""Suggest code changes based on this diff:\n{diff}"""
     message = client.messages.create(
-        model="claude-3.5-haiku-20240229",
+        model="claude-3-5-haiku-latest",
         max_tokens=1024,
         messages=[
             {
